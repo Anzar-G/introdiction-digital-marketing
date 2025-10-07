@@ -11,20 +11,18 @@
       box-sizing: border-box;
     }
     
-   body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
-  line-height: 1.7;
-  padding-bottom: 60px;
-  margin: 0;
-  background: 
-    url('bg.jpg') left top no-repeat,
-    url('bg.jpg') right top no-repeat;
-  background-size: 50% auto;
-  background-attachment: fixed;
-}
-
-
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+      line-height: 1.7;
+      padding-bottom: 60px;
+      margin: 0;
+      background: 
+        url('bg.jpg') left top no-repeat,
+        url('bg.jpg') right top no-repeat;
+      background-size: 50% auto;
+      background-attachment: fixed;
+    }
     
     .container {
       max-width: 900px;
@@ -84,23 +82,47 @@
       transition: width 0.3s ease;
     }
     
-  nav {
-  background: #f8f9fa;
-  padding: 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  max-height: 80vh; /* Batas tinggi navbar di mobile */
-  overflow-y: auto; /* Scroll jika kontennya panjang */
-}
+    nav {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .nav-toggle {
+      display: none;
+      background: #1d3557;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      width: 100%;
+      text-align: left;
+      position: relative;
+    }
+    
+    .nav-toggle::after {
+      content: '▼';
+      position: absolute;
+      right: 20px;
+      transition: transform 0.3s;
+    }
+    
+    .nav-toggle.active::after {
+      transform: rotate(180deg);
+    }
     
     nav ul {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 10px;
     }
     
     nav a {
@@ -111,6 +133,7 @@
       transition: all 0.3s;
       font-weight: 500;
       font-size: 0.9em;
+      display: block;
     }
     
     nav a:hover {
@@ -403,20 +426,46 @@
       display: flex;
     }
     
- @media (max-width: 768px) {
-  .nav-toggle {
-    display: block;  /* Tombol MUNCUL di layar ≤768px */
-  }
-  
-  nav ul {
-    max-height: 0;  /* Menu TERTUTUP secara default */
-    overflow: hidden;  /* Sembunyikan yang keluar */
-  }
-  
-  nav ul.show {
-    max-height: 500px;  /* Menu TERBUKA saat ada class "show" */
-  }
-}
+    @media (max-width: 768px) {
+      header h1 { font-size: 2em; }
+      header p { font-size: 1.1em; }
+      
+      .nav-toggle {
+        display: block;
+      }
+      
+      nav {
+        padding: 10px;
+      }
+      
+      nav ul {
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        transition: max-height 0.3s ease-out;
+        margin-top: 0;
+      }
+      
+      nav ul.show {
+        max-height: 500px;
+        margin-top: 15px;
+      }
+      
+      nav li {
+        width: 100%;
+      }
+      
+      nav a {
+        width: 100%;
+        text-align: center;
+        padding: 12px 16px;
+      }
+      
+      section { padding: 30px 20px; }
+      .card-container { grid-template-columns: 1fr; }
+      .stats-box { grid-template-columns: 1fr; }
+      h2 { font-size: 1.6em; }
+    }
   </style>
 </head>
 <body>
@@ -431,16 +480,17 @@
   </header>
 
   <nav>
-    <ul>
-      <li><a href="#definisi">Definisi</a></li>
-      <li><a href="#pentingnya">Pentingnya</a></li>
-      <li><a href="#alur">Alur Belajar</a></li>
-      <li><a href="#profesi">Profesi</a></li>
-      <li><a href="#mindset">Mindset</a></li>
-      <li><a href="#jenis">Jenis-Jenis</a></li>
-      <li><a href="#tools">Tools</a></li>
-      <li><a href="#tantangan">Tantangan</a></li>
-      <li><a href="#quiz">Quiz</a></li>
+    <button class="nav-toggle" onclick="toggleNav()">📋 Menu Topik</button>
+    <ul id="navMenu">
+      <li><a href="#definisi" onclick="closeNav()">Definisi</a></li>
+      <li><a href="#pentingnya" onclick="closeNav()">Pentingnya</a></li>
+      <li><a href="#alur" onclick="closeNav()">Alur Belajar</a></li>
+      <li><a href="#profesi" onclick="closeNav()">Profesi</a></li>
+      <li><a href="#mindset" onclick="closeNav()">Mindset</a></li>
+      <li><a href="#jenis" onclick="closeNav()">Jenis-Jenis</a></li>
+      <li><a href="#tools" onclick="closeNav()">Tools</a></li>
+      <li><a href="#tantangan" onclick="closeNav()">Tantangan</a></li>
+      <li><a href="#quiz" onclick="closeNav()">Quiz</a></li>
     </ul>
   </nav>
 
@@ -679,9 +729,7 @@
         <h3>Pertanyaan 1: Mengapa digital marketing memungkinkan bisnis kecil bersaing dengan brand besar?</h3>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q1', 'q2')">A. Karena semua bisnis mendapat subsidi iklan dari pemerintah</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q1', 'q2')">B. Karena digital marketing hanya digunakan oleh bisnis kecil</div>
-        <div class="quiz-option" onclick="checkAnswer(this, true, 'q1', 'q2')">C. Karena biaya promosi bisa disesuaikan dan hasilnya bisa diukur secara real-time
-
-</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true, 'q1', 'q2')">C. Karena biaya promosi bisa disesuaikan dan hasilnya bisa diukur secara real-time</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q1', 'q2')">D. Karena brand besar tidak menggunakan media sosial</div>
       </div>
       
@@ -689,51 +737,31 @@
         <h3>Pertanyaan 2: Apa mindset yang disarankan dalam digital marketing menurut materi?</h3>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q2', 'q3')">A. Fokus pada penjualan cepat dan viral</div>
         <div class="quiz-option" onclick="checkAnswer(this, true, 'q2', 'q3')">B. Bangun sistem dan value agar bisnis bisa berjalan otomatis</div>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q2', 'q3')">C. Posting sebanyak mungkin tanpa strategi
-
-</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q2', 'q3')">C. Posting sebanyak mungkin tanpa strategi</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q2', 'q3')">D. Meniru strategi kompetitor secara mentah-mentah</div>
       </div>
       
       <div class="quiz-question" id="q3">
         <h3>Pertanyaan 3: Jenis digital marketing apa yang menggunakan konten berkualitas untuk menarik audiens?</h3>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q3', 'q4')">A. Search Engine Marketing (SEM)
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q3', 'q4')">B. Affiliate Marketing
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, true, 'q3', 'q4')">C. Content Marketing
-
-</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q3', 'q4')">A. Search Engine Marketing (SEM)</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q3', 'q4')">B. Affiliate Marketing</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true, 'q3', 'q4')">C. Content Marketing</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q3', 'q4')">D. Video Marketing</div>
       </div>
       
       <div class="quiz-question" id="q4">
         <h3>Pertanyaan 4: Apa solusi untuk pemula yang merasa kewalahan dengan banyaknya platform digital?</h3>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q4', 'q5')">A. Gunakan semua platform sekaligus
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, true, 'q4', 'q5')">B. Fokus pada 2–3 platform utama terlebih dahulu
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q4', 'q5')">C. Hindari media sosial sepenuhnya
-
-</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q4', 'q5')">A. Gunakan semua platform sekaligus</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true, 'q4', 'q5')">B. Fokus pada 2–3 platform utama terlebih dahulu</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q4', 'q5')">C. Hindari media sosial sepenuhnya</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q4', 'q5')">D. Posting tanpa jadwal</div>
       </div>
       
       <div class="quiz-question" id="q5">
         <h3>Pertanyaan 5: Apa kelebihan utama dari digital marketing dibandingkan pemasaran konvensional?</h3>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q5', 'result')">A. Tidak membutuhkan strategi atau perencanaan
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, false, 'q5', 'result')">B. Hasilnya tidak bisa diukur
-
-</div>
-        <div class="quiz-option" onclick="checkAnswer(this, true, 'q5', 'result')">C. Bisa menjangkau audiens yang lebih luas dengan biaya yang lebih efisien
-
-</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q5', 'result')">A. Tidak membutuhkan strategi atau perencanaan</div>
+        <div class="quiz-option" onclick="checkAnswer(this, false, 'q5', 'result')">B. Hasilnya tidak bisa diukur</div>
+        <div class="quiz-option" onclick="checkAnswer(this, true, 'q5', 'result')">C. Bisa menjangkau audiens yang lebih luas dengan biaya yang lebih efisien</div>
         <div class="quiz-option" onclick="checkAnswer(this, false, 'q5', 'result')">D. Hanya bisa digunakan oleh perusahaan besar</div>
       </div>
       
@@ -890,6 +918,21 @@
 </div>
 
 <script>
+  // Navigation toggle for mobile
+  function toggleNav() {
+    var navMenu = document.getElementById('navMenu');
+    var navToggle = document.querySelector('.nav-toggle');
+    navMenu.classList.toggle('show');
+    navToggle.classList.toggle('active');
+  }
+  
+  function closeNav() {
+    var navMenu = document.getElementById('navMenu');
+    var navToggle = document.querySelector('.nav-toggle');
+    navMenu.classList.remove('show');
+    navToggle.classList.remove('active');
+  }
+  
   // Progress Bar
   window.addEventListener('scroll', function() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -937,32 +980,33 @@
   var quizScore = 0;
   
   function checkAnswer(element, isCorrect, currentQ, nextQ) {
-    // Disable all options in current question
     var options = document.querySelectorAll('#' + currentQ + ' .quiz-option');
     options.forEach(opt => {
       opt.style.pointerEvents = 'none';
     });
     
-    // Show correct/wrong
     if (isCorrect) {
       element.classList.add('correct');
       quizScore++;
       document.getElementById('score').textContent = quizScore;
     } else {
       element.classList.add('wrong');
-      // Show correct answer
       options.forEach(opt => {
-        if (opt.textContent.includes('B.') || opt.textContent === element.textContent) return;
-        var correctIndicators = ['B. Copywriting', 'B. Instagram, TikTok, atau YouTube', 'B. Search Engine Optimization', 'B. Membangun value dan sistem yang berkelanjutan', 'A. Google Analytics'];
-        correctIndicators.forEach(indicator => {
-          if (opt.textContent.includes(indicator)) {
+        var correctAnswers = [
+          'C. Karena biaya promosi bisa disesuaikan dan hasilnya bisa diukur secara real-time',
+          'B. Bangun sistem dan value agar bisnis bisa berjalan otomatis',
+          'C. Content Marketing',
+          'B. Fokus pada 2–3 platform utama terlebih dahulu',
+          'C. Bisa menjangkau audiens yang lebih luas dengan biaya yang lebih efisien'
+        ];
+        correctAnswers.forEach(answer => {
+          if (opt.textContent.trim() === answer) {
             opt.classList.add('correct');
           }
         });
       });
     }
     
-    // Move to next question after delay
     setTimeout(function() {
       document.getElementById(currentQ).classList.remove('active');
       if (nextQ === 'result') {
@@ -992,7 +1036,6 @@
     quizScore = 0;
     document.getElementById('score').textContent = '0';
     
-    // Reset all questions
     var allQuestions = document.querySelectorAll('.quiz-question');
     allQuestions.forEach(q => {
       q.classList.remove('active');
@@ -1003,7 +1046,6 @@
       });
     });
     
-    // Show first question
     document.getElementById('q1').classList.add('active');
   }
   
