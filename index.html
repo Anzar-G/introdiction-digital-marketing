@@ -403,11 +403,19 @@
       display: flex;
     }
     
-   @media (max-width: 768px) {
-  header h1 { font-size: 2em; }
-  nav ul { flex-direction: column; }
-  section { padding: 30px 20px; }
-  .card-container { grid-template-columns: 1fr; }
+ @media (max-width: 768px) {
+  .nav-toggle {
+    display: block;  /* Tombol MUNCUL di layar ≤768px */
+  }
+  
+  nav ul {
+    max-height: 0;  /* Menu TERTUTUP secara default */
+    overflow: hidden;  /* Sembunyikan yang keluar */
+  }
+  
+  nav ul.show {
+    max-height: 500px;  /* Menu TERBUKA saat ada class "show" */
+  }
 }
   </style>
 </head>
