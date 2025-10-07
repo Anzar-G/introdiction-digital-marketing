@@ -1071,6 +1071,32 @@
     observer.observe(section);
   });
 </script>
+<!-- Visitor Counter -->
+<div id="visitor-counter" style="
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+">
+  Pengunjung: <span id="count">0</span>
+</div>
 
+<script>
+  // Gunakan CountAPI untuk hitung pengunjung
+  fetch('https://api.countapi.xyz/hit/anzar-g/digital-marketing')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('count').innerText = data.value.toLocaleString();
+    })
+    .catch(() => {
+      document.getElementById('count').innerText = '?';
+    });
+</script>
 </body>
 </html>
